@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Manajemen Stok</title>
+
+    <link rel="stylesheet" href="../css/style.css" />
+  </head>
+  <body>
+    <div class="page">
+      <h1>Manajemen Stok Barang</h1>
+
+      <button class="btn"> + Tambah Stok </button>
+
+      <input type="text" placeholder="Cari Barang..." class="search" />
+
+      <table>
+        <tr>
+          <th>Kode</th>
+          <th>Nama Barang</th>
+          <th>Stok</th>
+          <th>Status</th>
+          <th>Aksi</th>
+        </tr>
+
+        <tr>
+          <td>BR001</td>
+          <td>Indomie</td>
+          <td>120</td>
+          <td>Aman</td>
+          <td>
+            <div class="dropdown">
+              <button class="aksi-btn" onclick="toggleMenu(this)"> ⋮ </button>
+
+              <div class="dropdown-menu">
+                <button> Lihat Detail </button>
+
+                <button> Request Perubahan </button>
+              </div>
+            </div>
+          </td>
+        </tr>
+
+        <tr>
+          <td>BR002</td>
+          <td>Aqua</td>
+          <td>8</td>
+          <td>Rendah</td>
+          <td>
+            <div class="dropdown">
+              <button class="aksi-btn" onclick="toggleMenu(this)"> ⋮ </button>
+
+              <div class="dropdown-menu">
+                <button> Lihat Detail </button>
+
+                <button> Request Perubahan </button>
+              </div>
+            </div>
+          </td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="top-bar">
+      <a href="../index.html" class="back-btn"> ← Kembali </a>
+    </div>
+  </body>
+</html>
