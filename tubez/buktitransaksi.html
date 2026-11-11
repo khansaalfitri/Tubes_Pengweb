@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Bukti Transaksi</title>
+    <link rel="stylesheet" href="buktitransaksi.css" />
+  </head>
+  <body>
+    <div class="container">
+      <div class="header">
+        <div>
+          <h1>Bukti Transaksi</h1>
+          <p>Riwayat dan bukti pembelian pelanggan</p>
+        </div>
+
+        <a href="dashboard.html" class="back-button"> Kembali ke Dashboard </a>
+      </div>
+
+      <div class="search-box">
+        <input
+          type="text"
+          id="searchInput"
+          placeholder="Cari nomor transaksi..."
+        />
+
+        <button onclick="searchTransaction()">Cari</button>
+      </div>
+
+      <div class="transaction-card">
+        <h3>Daftar Transaksi</h3>
+
+        <table>
+          <thead>
+            <tr>
+              <th>No.</th>
+              <th>No. Transaksi</th>
+              <th>Tanggal</th>
+              <th>Total Harga</th>
+              <th>Aksi</th>
+            </tr>
+          </thead>
+
+          <tbody id="transactionList"></tbody>
+        </table>
+      </div>
+
+      <!-- DETAIL BUKTI TRANSAKSI -->
+      <div class="receipt-card" id="receiptCard">
+        <div class="receipt-header">
+          <h2>INVENTORY STORE</h2>
+          <p>Bukti Pembelian</p>
+          <span class="status">Transaksi Berhasil</span>
+        </div>
+
+        <div class="receipt-info">
+          <p>No. Transaksi: <strong id="receiptNumber"></strong></p>
+          <p>Tanggal: <strong id="receiptDate"></strong></p>
+          <p>Kasir: <strong id="receiptCashier"></strong></p>
+        </div>
+
+        <hr />
+
+        <h3>Daftar Barang</h3>
+
+        <table>
+          <thead>
+            <tr>
+              <th>Nama Barang</th>
+              <th>Jumlah</th>
+              <th>Harga</th>
+              <th>Subtotal</th>
+            </tr>
+          </thead>
+
+          <tbody id="receiptItems"></tbody>
+        </table>
+
+        <hr />
+
+        <div class="payment-detail">
+          <p>Total Harga: <strong id="receiptTotal"></strong></p>
+          <p>Pembayaran: <strong id="receiptPayment"></strong></p>
+          <p>Kembalian: <strong id="receiptChange"></strong></p>
+        </div>
+
+        <div class="receipt-footer">
+          <p>Terima kasih telah berbelanja!</p>
+        </div>
+
+        <button class="print-button" onclick="printReceipt()">
+          Cetak Bukti Transaksi
+        </button>
+      </div>
+    </div>
+
+    <script src="buktitransaksi.js"></script>
+  </body>
+</html>
