@@ -1,0 +1,238 @@
+
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Transaksi Penjualan | TokoKita</title>
+    <link rel="stylesheet" href="transaksi.css">
+</head>
+<body>
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+        <div class="brand">
+            <div class="brand-icon">TK</div>
+            <div>
+                <h2>TokoKita</h2>
+                <p>Inventory & Cashier</p>
+            </div>
+        </div>
+
+        <div class="menu-label">MENU UTAMA</div>
+
+        <nav class="sidebar-menu">
+            <a href="dashboard.html" class="menu-item">
+                <span class="menu-icon">▦</span>
+                <span>Dashboard</span>
+            </a>
+
+            <a href="#" class="menu-item">
+                <span class="menu-icon">▤</span>
+                <span>Data Barang</span>
+            </a>
+
+            <a href="#" class="menu-item">
+                <span class="menu-icon">▣</span>
+                <span>Stok Barang</span>
+            </a>
+
+            <a href="transaksi.html" class="menu-item active">
+                <span class="menu-icon">🛒</span>
+                <span>Transaksi Penjualan</span>
+            </a>
+
+            <a href="#" class="menu-item">
+                <span class="menu-icon">▧</span>
+                <span>Bukti Transaksi</span>
+            </a>
+        </nav>
+
+        <div class="sidebar-bottom">
+            <button class="logout-button" onclick="logout()">
+                <span>↪</span> Keluar
+            </button>
+        </div>
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <main class="main-content">
+
+        <!-- TOPBAR -->
+        <header class="topbar">
+            <div>
+                <p class="topbar-subtitle">Sistem Manajemen Toko</p>
+                <h3>Halaman Kasir</h3>
+            </div>
+
+            <div class="user-profile">
+                <div class="user-avatar">K</div>
+                <div>
+                    <strong id="cashierName">Kasir</strong>
+                    <p>Kasir</p>
+                </div>
+            </div>
+        </header>
+
+        <!-- CONTENT -->
+        <section class="content">
+
+            <div class="page-heading">
+                <div>
+                    <h1>Transaksi Penjualan</h1>
+                    <p>Kelola transaksi penjualan dan pembayaran pelanggan.</p>
+                </div>
+                <span class="page-status">● Sistem Kasir</span>
+            </div>
+
+            <div class="transaction-layout">
+
+                <!-- DAFTAR PRODUK -->
+                <section class="panel product-panel">
+                    <div class="panel-header">
+                        <div>
+                            <h2>Daftar Produk</h2>
+                            <p>Pilih produk yang dibeli pelanggan.</p>
+                        </div>
+                    </div>
+
+                    <div class="search-box">
+                        <span>⌕</span>
+                        <input
+                            type="text"
+                            id="searchProduct"
+                            placeholder="Cari nama atau kode barang..."
+                        >
+                    </div>
+
+                    <div class="table-wrapper">
+                        <table class="product-table">
+                            <thead>
+                                <tr>
+                                    <th>Kode</th>
+                                    <th>Nama Barang</th>
+                                    <th>Harga</th>
+                                    <th>Stok</th>
+                                    <th>Aksi</th>
+                                </tr>
+                            </thead>
+                            <tbody id="productTable">
+                                <!-- Produk ditampilkan melalui JavaScript -->
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+
+                <!-- KERANJANG DAN PEMBAYARAN -->
+                <section class="right-panel">
+
+                    <div class="panel cart-panel">
+                        <div class="panel-header cart-heading">
+                            <div>
+                                <h2>Keranjang Belanja</h2>
+                                <p>Daftar barang yang dipilih.</p>
+                            </div>
+                            <span class="cart-badge" id="cartCount">0</span>
+                        </div>
+
+                        <div class="cart-items" id="cartItems">
+                            <div class="empty-cart">
+                                <div class="empty-icon">🛒</div>
+                                <h3>Keranjang masih kosong</h3>
+                                <p>Silakan pilih produk untuk memulai transaksi.</p>
+                            </div>
+                        </div>
+
+                        <div class="cart-summary">
+                            <div class="summary-row">
+                                <span>Total Barang</span>
+                                <strong id="totalItems">0</strong>
+                            </div>
+                            <div class="summary-row total-row">
+                                <span>Total Pembayaran</span>
+                                <strong id="totalPrice">Rp0</strong>
+                            </div>
+                        </div>
+
+                        <button type="button" class="clear-button" id="clearCart">
+                            Kosongkan Keranjang
+                        </button>
+                    </div>
+
+                    <div class="panel payment-panel">
+                        <div class="panel-header">
+                            <div>
+                                <h2>Pembayaran</h2>
+                                <p>Masukkan uang yang diterima.</p>
+                            </div>
+                        </div>
+
+                        <label for="paymentAmount">Uang Tunai</label>
+                        <div class="input-money">
+                            <span>Rp</span>
+                            <input
+                                type="number"
+                                id="paymentAmount"
+                                placeholder="Masukkan nominal"
+                                min="0"
+                            >
+                        </div>
+
+                        <div class="change-box">
+                            <span>Kembalian</span>
+                            <strong id="changeAmount">Rp0</strong>
+                        </div>
+
+                        <button
+                            type="button"
+                            class="process-button"
+                            id="processTransaction"
+                        >
+                            Simpan Transaksi
+                        </button>
+                    </div>
+
+                </section>
+            </div>
+        </section>
+    </main>
+
+    <!-- MODAL STRUK -->
+    <div class="modal-overlay" id="receiptModal">
+        <div class="receipt-modal">
+            <div class="receipt-header">
+                <h2>Transaksi Berhasil</h2>
+                <p>Berikut bukti transaksi pelanggan.</p>
+            </div>
+
+            <div id="receiptContent">
+                <!-- Isi struk dibuat melalui JavaScript -->
+            </div>
+
+            <div class="receipt-actions">
+                <button type="button" onclick="window.print()" class="print-button">
+                    Cetak Struk
+                </button>
+                <button type="button" onclick="closeReceipt()" class="close-button">
+                    Tutup
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function logout() {
+            if (confirm("Apakah kamu yakin ingin keluar?")) {
+                sessionStorage.clear();
+                window.location.href = "index.html";
+            }
+        }
+
+        function closeReceipt() {
+            document.getElementById("receiptModal").style.display = "none";
+        }
+    </script>
+
+    <script src="transaksi.js"></script>
+</body>
+</html>

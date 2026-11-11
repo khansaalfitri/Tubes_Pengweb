@@ -1,34 +1,40 @@
-<!doctype html>
+
+<!DOCTYPE html>
 <html lang="id">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard Inventory</title>
-    <link rel="stylesheet" href="dashboard.css" />
-  </head>
-  <body>
-    <!-- TEMPAT DASHBOARD DITAMPILKAN -->
+    <link rel="stylesheet" href="dashboard.css">
+</head>
+<body>
+
     <div id="dashboard"></div>
 
-    <!-- POPUP KONFIRMASI LOGOUT -->
+    <!-- Popup Logout -->
     <div class="logout-overlay" id="logoutModal">
-      <div class="logout-box">
-        <div class="logout-icon">↪</div>
+        <div class="logout-box">
 
-        <h2>Konfirmasi Logout</h2>
+            <div class="logout-icon">↪</div>
 
-        <p>Apakah Anda yakin ingin keluar dari sistem?</p>
+            <h2>Konfirmasi Logout</h2>
 
-        <div class="logout-actions">
-          <button class="btn-cancel" onclick="closeLogout()">Batal</button>
+            <p>Apakah Anda yakin ingin keluar dari sistem?</p>
 
-          <button class="btn-logout" onclick="confirmLogout()">
-            Ya, Logout
-          </button>
+            <div class="logout-actions">
+                <button class="btn-cancel" onclick="closeLogout()">
+                    Batal
+                </button>
+
+                <button class="btn-logout" onclick="confirmLogout()">
+                    Ya, Logout
+                </button>
+            </div>
+
         </div>
-      </div>
     </div>
 
     <script src="dashboard.js"></script>
-  </body>
+
+</body>
 </html>
