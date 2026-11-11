@@ -1,0 +1,225 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Segoe UI", sans-serif;
+}
+
+body {
+  background: #f2f5fa;
+  color: #263b57;
+}
+
+/* SIDEBAR */
+.sidebar {
+  width: 250px;
+  height: 100vh;
+  background: #103f7c;
+  position: fixed;
+  padding: 25px 15px;
+  color: white;
+  display: flex;
+  flex-direction: column;
+}
+
+.sidebar h2 {
+  margin-bottom: 40px;
+}
+
+.menu-title {
+  color: #a9c7e9;
+  font-size: 12px;
+  margin-bottom: 15px;
+}
+
+.menu-item {
+  display: block;
+  padding: 14px;
+  margin-bottom: 7px;
+  color: white;
+  text-decoration: none;
+  border-radius: 8px;
+  transition: 0.3s;
+}
+
+.menu-item:hover {
+  background: #2875c9;
+}
+
+/* TOMBOL LOGOUT SIDEBAR */
+.sidebar-logout {
+  margin-top: auto;
+  width: 100%;
+  padding: 13px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 10px;
+  cursor: pointer;
+  background: #ffffff;
+  color: #103f7c;
+  font-size: 14px;
+  font-weight: bold;
+  transition: 0.3s;
+}
+
+.sidebar-logout:hover {
+  background: #e2edfa;
+  transform: translateY(-2px);
+}
+
+/* KONTEN UTAMA */
+.main-content {
+  margin-left: 250px;
+}
+
+.topbar {
+  height: 85px;
+  background: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 35px;
+}
+
+.topbar p {
+  font-size: 12px;
+  color: #8997a9;
+  margin-top: 5px;
+}
+
+.content {
+  padding: 35px;
+}
+
+.content h1 {
+  margin-bottom: 10px;
+  color: #173d70;
+}
+
+.welcome {
+  margin: 30px 0;
+  padding: 30px;
+  background: linear-gradient(110deg, #1765bd, #3289d8);
+  border-radius: 12px;
+  color: white;
+}
+
+.welcome p {
+  margin-top: 10px;
+}
+
+/* BACKGROUND POPUP */
+.logout-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(4px);
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+  padding: 20px;
+}
+
+/* KOTAK POPUP */
+.logout-box {
+  background: white;
+  width: 350px;
+  max-width: 100%;
+  padding: 30px;
+  border-radius: 18px;
+  text-align: center;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+  animation: popup 0.25s ease;
+}
+
+/* IKON LOGOUT */
+.logout-icon {
+  width: 65px;
+  height: 65px;
+  background: #fff0f0;
+  color: #dc4444;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto 18px;
+  font-size: 30px;
+}
+
+.logout-box h2 {
+  margin-bottom: 10px;
+  color: #222;
+}
+
+.logout-box p {
+  color: #777;
+  font-size: 14px;
+  margin-bottom: 25px;
+  line-height: 1.6;
+}
+
+/* TOMBOL POPUP */
+.logout-actions {
+  display: flex;
+  gap: 12px;
+}
+
+.logout-actions button {
+  flex: 1;
+  padding: 11px;
+  border: none;
+  border-radius: 9px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.btn-cancel {
+  background: #eeeeee;
+  color: #444;
+}
+
+.btn-cancel:hover {
+  background: #dddddd;
+}
+
+.btn-logout {
+  background: #dc4444;
+  color: white;
+}
+
+.btn-logout:hover {
+  background: #bd3030;
+}
+
+/* ANIMASI POPUP */
+@keyframes popup {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* RESPONSIVE */
+@media (max-width: 750px) {
+  .sidebar {
+    width: 190px;
+  }
+
+  .main-content {
+    margin-left: 190px;
+  }
+
+  .topbar {
+    padding: 0 15px;
+  }
+
+  .content {
+    padding: 20px;
+  }
+}
