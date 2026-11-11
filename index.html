@@ -1,357 +1,136 @@
-<<<<<<< HEAD
 
 <!DOCTYPE html>
 <html lang="id">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Manajemen Data Barang</title>
+  <title>Laporan Penjualan - Toko Grosir</title>
+  <link rel="stylesheet" href="style.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-  <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <main class="container">
-
     <header class="topbar">
       <div>
-        <p class="breadcrumb">Dashboard / Manajemen Data</p>
-        <h1>Manajemen Data Barang</h1>
-        <p class="subtitle">Kelola dan perbarui informasi data barang toko.</p>
+        <p class="breadcrumb">Dashboard / Laporan</p>
+        <h1>Laporan Penjualan</h1>
+        <p class="subtitle">Performa penjualan toko.</p>
       </div>
-      <div class="top-actions">
-        <button class="btn light" id="exportBtn">
-          <i class="fa-solid fa-file-export"></i> Export
-        </button>
-        <button class="btn primary" id="addBtn">
-          <i class="fa-solid fa-plus"></i> Tambah Barang
-        </button>
-      </div>
+      <button class="btn primary" id="exportBtn">
+        <i class="fa-solid fa-download"></i> Export Laporan
+      </button>
     </header>
 
-    <!-- Hak Akses -->
-    <section class="role-panel">
-      <div class="role-info">
-        <div class="role-icon"><i class="fa-solid fa-user-shield"></i></div>
-        <div>
-          <strong>Simulasi Hak Akses</strong>
-          <p>Pilih peran untuk melihat perbedaan hak akses pengguna.</p>
-        </div>
+    <section class="filter-panel">
+      <div class="period-tabs">
+        <button class="period-btn active" data-period="daily">Harian</button>
+        <button class="period-btn" data-period="weekly">Mingguan</button>
+        <button class="period-btn" data-period="monthly">Bulanan</button>
+        <button class="period-btn" data-period="yearly">Tahunan</button>
       </div>
-      <select id="roleSelect">
-        <option value="owner">Pemilik Toko</option>
-        <option value="admin">Admin Gudang</option>
-      </select>
+
+      <div class="date-filter">
+        <label>
+          Dari tanggal
+          <input type="date" id="startDate">
+        </label>
+        <label>
+          Sampai tanggal
+          <input type="date" id="endDate">
+        </label>
+        <button class="btn primary" id="applyFilter">
+          <i class="fa-solid fa-filter"></i> Terapkan
+        </button>
+        <button class="btn light" id="resetFilter">Reset</button>
+      </div>
+
+      <p class="filter-info" id="filterInfo"></p>
     </section>
 
-    <div class="access-notice" id="accessNotice">
-      <i class="fa-solid fa-circle-info"></i>
-      <span>Pemilik Toko memiliki akses penuh untuk mengelola seluruh data barang.</span>
-    </div>
-
-    <!-- Ringkasan Data -->
     <section class="stats-grid">
       <article class="stat-card">
-        <div class="stat-top">
-          <div class="stat-icon blue">
-            <i class="fa-solid fa-box"></i>
-          </div>
-          <span class="stat-tag">Data Barang</span>
+        <div class="stat-icon blue">
+          <i class="fa-solid fa-wallet"></i>
         </div>
-        <p>Total Jenis Barang</p>
-        <h2 id="totalProducts">0</h2>
-        <small>Jumlah barang yang terdaftar dalam sistem</small>
+        <p>Total Penjualan</p>
+        <h2 id="totalSales">Rp0</h2>
+        <small>Nilai penjualan pada periode ini</small>
+      </article>
+
+      <article class="stat-card">
+        <div class="stat-icon purple">
+          <i class="fa-solid fa-receipt"></i>
+        </div>
+        <p>Total Transaksi</p>
+        <h2 id="totalTransactions">0</h2>
+        <small>Transaksi berhasil</small>
+      </article>
+
+      <article class="stat-card">
+        <div class="stat-icon orange">
+          <i class="fa-solid fa-boxes-stacked"></i>
+        </div>
+        <p>Produk Terjual</p>
+        <h2 id="totalItems">0</h2>
+        <small>Jumlah seluruh barang terjual</small>
+      </article>
+
+      <article class="stat-card">
+        <div class="stat-icon green">
+          <i class="fa-solid fa-chart-line"></i>
+        </div>
+        <p>Rata-rata Transaksi</p>
+        <h2 id="averageSales">Rp0</h2>
+        <small>Rata-rata nilai per transaksi</small>
       </article>
     </section>
 
-    <!-- Daftar Barang -->
-    <section class="panel inventory-panel">
-      <div class="panel-heading">
-        <div>
-          <h3>Daftar Data Barang</h3>
-          <p>Informasi barang yang terdaftar dalam sistem.</p>
-        </div>
-        <span class="data-count" id="dataCount">0 Barang</span>
-      </div>
-
-      <div class="toolbar">
-        <div class="search-box">
-          <i class="fa-solid fa-magnifying-glass"></i>
-          <input type="search" id="searchInput" placeholder="Cari nama atau kode barang...">
+    <section class="content-grid">
+      <article class="panel chart-panel">
+        <div class="panel-heading">
+          <div>
+            <h3>Grafik Penjualan</h3>
+            <p>Pergerakan penjualan berdasarkan periode</p>
+          </div>
+          <span class="live-label">
+            <i class="fa-solid fa-circle"></i> Data contoh
+          </span>
         </div>
 
-        <select id="categoryFilter">
-          <option value="">Semua Kategori</option>
-          <option value="Sembako">Sembako</option>
-          <option value="Makanan">Makanan</option>
-          <option value="Minuman">Minuman</option>
-          <option value="Kebutuhan Rumah">Kebutuhan Rumah</option>
-        </select>
-      </div>
+        <div class="chart-total" id="chartTotal">Rp0</div>
+        <div class="chart" id="salesChart"></div>
+      </article>
 
-      <div class="table-wrap">
-        <table>
-          <thead>
-            <tr>
-              <th>Kode Barang</th>
-              <th>Nama Barang</th>
-              <th>Kategori</th>
-              <th>Harga</th>
-              <th>Aksi</th>
-            </tr>
-          </thead>
-          <tbody id="productBody"></tbody>
-        </table>
-      </div>
-
-      <div class="table-footer">
-        <span id="tableInfo">Menampilkan data barang</span>
-        <button class="btn light small" id="resetFilter">
-          <i class="fa-solid fa-rotate-left"></i> Reset Filter
-        </button>
-      </div>
-    </section>
-
-    <!-- Pengajuan Perubahan Data -->
-    <section class="panel request-panel">
-      <div class="panel-heading">
-        <div>
-          <h3>Pengajuan Perubahan Data</h3>
-          <p>Daftar koreksi data barang yang diajukan admin gudang.</p>
-        </div>
-        <span class="request-count" id="requestCount">0 Pengajuan</span>
-      </div>
-
-      <div class="table-wrap">
-        <table>
-          <thead>
-            <tr>
-              <th>Tanggal</th>
-              <th>Kode Barang</th>
-              <th>Nama Barang</th>
-              <th>Bagian yang Diubah</th>
-              <th>Alasan</th>
-              <th>Status</th>
-              <th>Aksi</th>
-            </tr>
-          </thead>
-          <tbody id="requestBody"></tbody>
-        </table>
-      </div>
-    </section>
-
-    <footer>© 2026 Sistem Manajemen Inventaris dan Kasir Toko</footer>
-  </main>
-
-  <!-- Modal Tambah / Edit Barang -->
-  <div class="modal-overlay" id="productModal">
-    <div class="modal">
-      <div class="modal-heading">
-        <div>
-          <h3 id="productModalTitle">Tambah Barang</h3>
-          <p>Lengkapi informasi barang di bawah ini.</p>
-        </div>
-        <button class="close-btn" data-close="productModal">
-          <i class="fa-solid fa-xmark"></i>
-        </button>
-      </div>
-
-      <form id="productForm">
-        <input type="hidden" id="editId">
-
-        <label>Kode Barang
-          <input type="text" id="codeInput" placeholder="Contoh: BRG-001" required>
-        </label>
-
-        <label>Nama Barang
-          <input type="text" id="nameInput" placeholder="Masukkan nama barang" required>
-        </label>
-
-        <label>Kategori
-          <select id="categoryInput" required>
-            <option value="">Pilih kategori</option>
-            <option>Sembako</option>
-            <option>Makanan</option>
-            <option>Minuman</option>
-            <option>Kebutuhan Rumah</option>
-          </select>
-        </label>
-
-        <label>Harga (Rp)
-          <input type="number" id="priceInput" min="0" placeholder="0" required>
-        </label>
-
-        <div class="modal-actions">
-          <button type="button" class="btn light" data-close="productModal">Batal</button>
-          <button type="submit" class="btn primary">Simpan Barang</button>
-        </div>
-      </form>
-    </div>
-  </div>
-
-  <!-- Modal Detail Barang -->
-  <div class="modal-overlay" id="detailModal">
-    <div class="modal">
-      <div class="modal-heading">
-        <div>
-          <h3>Detail Barang</h3>
-          <p>Informasi lengkap barang.</p>
-        </div>
-        <button class="close-btn" data-close="detailModal">
-          <i class="fa-solid fa-xmark"></i>
-        </button>
-      </div>
-      <div id="detailContent"></div>
-    </div>
-  </div>
-
-  <!-- Modal Pengajuan Perubahan -->
-  <div class="modal-overlay" id="requestModal">
-    <div class="modal">
-      <div class="modal-heading">
-        <div>
-          <h3>Ajukan Perubahan Data</h3>
-          <p>Pengajuan akan dikirim kepada pemilik toko.</p>
-        </div>
-        <button class="close-btn" data-close="requestModal">
-          <i class="fa-solid fa-xmark"></i>
-        </button>
-      </div>
-
-      <form id="requestForm">
-        <input type="hidden" id="requestProductId">
-
-        <label>Barang
-          <input type="text" id="requestProductName" readonly>
-        </label>
-
-        <label>Bagian yang perlu diubah
-          <select id="requestField" required>
-            <option value="">Pilih bagian</option>
-            <option>Nama Barang</option>
-            <option>Kode Barang</option>
-            <option>Kategori</option>
-            <option>Harga</option>
-          </select>
-        </label>
-
-        <label>Data yang benar / usulan perubahan
-          <input type="text" id="requestValue" placeholder="Masukkan usulan perubahan" required>
-        </label>
-
-        <label>Alasan pengajuan
-          <textarea id="requestReason" rows="3" placeholder="Jelaskan kesalahan yang ditemukan..." required></textarea>
-        </label>
-
-        <div class="modal-actions">
-          <button type="button" class="btn light" data-close="requestModal">Batal</button>
-          <button type="submit" class="btn primary">Kirim Pengajuan</button>
-        </div>
-      </form>
-    </div>
-  </div>
-
-  <!-- Modal Persetujuan Pengajuan -->
-  <div class="modal-overlay" id="approvalModal">
-    <div class="modal">
-      <div class="modal-heading">
-        <div>
-          <h3>Periksa Pengajuan</h3>
-          <p>Tinjau usulan perubahan dari admin gudang.</p>
-        </div>
-        <button class="close-btn" data-close="approvalModal">
-          <i class="fa-solid fa-xmark"></i>
-        </button>
-      </div>
-      <div id="approvalContent"></div>
-      <div class="modal-actions">
-        <button class="btn light" data-close="approvalModal">Tutup</button>
-        <button class="btn danger-btn" id="rejectRequest">Tolak</button>
-        <button class="btn primary" id="approveRequest">Setujui</button>
-      </div>
-    </div>
-  </div>
-
-  <script src="script.js"></script>
-</body>
-=======
-<!doctype html>
-<html lang="id">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Login | Inventory System</title>
-    <link rel="stylesheet" href="style.css" />
-  </head>
-  <body>
-    <div class="login-container">
-      <!-- BAGIAN KIRI -->
-      <div class="left-panel">
-        <div class="brand">
-          <div class="brand-icon">📦</div>
-          <span>INVENTORY SYSTEM</span>
-        </div>
-
-        <div class="welcome">
-          <h1>Manage Your Store Smarter.</h1>
-
-          <p>
-            Kelola inventaris, stok barang, dan transaksi penjualan dalam satu
-            sistem yang mudah dan terorganisir.
-          </p>
-
-          <div class="illustration">📦 🛒</div>
-        </div>
-
-        <div class="left-footer">Inventory & Cashier Management System</div>
-      </div>
-
-      <!-- BAGIAN KANAN -->
-      <div class="right-panel">
-        <div class="login-form">
-          <div class="form-icon">👋</div>
-
-          <h2>Selamat Datang!</h2>
-
-          <p class="subtitle">Silakan masuk menggunakan akun Anda.</p>
-
-          <form id="loginForm">
-            <div class="input-group">
-              <label>Username</label>
-
-              <input
-                type="text"
-                id="username"
-                placeholder="Masukkan username"
-                required
-              />
-            </div>
-
-            <div class="input-group">
-              <label>Password</label>
-
-              <input
-                type="password"
-                id="password"
-                placeholder="Masukkan password"
-                required
-              />
-            </div>
-
-            <button type="submit">LOGIN</button>
-          </form>
-
-          <div class="security-info">
-            <span>🔒</span>
-            Akses sistem sesuai hak akses akun Anda.
+      <article class="panel">
+        <div class="panel-heading">
+          <div>
+            <h3>Metode Pembayaran</h3>
+            <p>Komposisi transaksi</p>
           </div>
         </div>
 
-        <div class="right-footer">© 2026 Inventory Management System</div>
+        <div class="payment-list" id="paymentList"></div>
+      </article>
+    </section>
+
+    <section class="panel">
+      <div class="panel-heading">
+        <div>
+          <h3>Produk Terlaris</h3>
+          <p>Produk dengan jumlah penjualan tertinggi</p>
+        </div>
       </div>
-    </div>
-    <script src="login.js"></script>
-  </body>
->>>>>>> 9b1fd806293f135be04b7ca34f8d89743dd05759
+
+      <div class="product-list" id="productList"></div>
+    </section>
+
+    <footer>
+      © 2026 Sistem Manajemen Inventaris dan Kasir Toko
+    </footer>
+  </main>
+
+  <script src="script.js"></script>
+</body>
 </html>
