@@ -1,40 +1,53 @@
-
-<!DOCTYPE html>
+<!doctype html>
 <html lang="id">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard Inventory</title>
-    <link rel="stylesheet" href="dashboard.css">
-</head>
-<body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Kastok | Dashboard</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="layout">
+      <aside class="sidebar">
+        <a class="brand side-brand" href="dashboard.html">
+          <div class="brand-mark">K</div>
+          <div>
+            <h2>Kastok</h2>
+            <p>Inventory Management</p>
+          </div>
+        </a>
 
-    <div id="dashboard"></div>
+        <nav id="navigation"></nav>
 
-    <!-- Popup Logout -->
-    <div class="logout-overlay" id="logoutModal">
-        <div class="logout-box">
-
-            <div class="logout-icon">↪</div>
-
-            <h2>Konfirmasi Logout</h2>
-
-            <p>Apakah Anda yakin ingin keluar dari sistem?</p>
-
-            <div class="logout-actions">
-                <button class="btn-cancel" onclick="closeLogout()">
-                    Batal
-                </button>
-
-                <button class="btn-logout" onclick="confirmLogout()">
-                    Ya, Logout
-                </button>
-            </div>
-
+        <div class="side-user">
+          <b id="sideName"></b>
+          <span id="sideRole"></span>
+          <button id="logoutBtn" class="btn btn-ghost full">Logout</button>
         </div>
+      </aside>
+
+      <main class="main">
+        <header class="topbar">
+          <div>
+            <h3>Dashboard</h3>
+            <p>Sistem Manajemen Inventaris dan Kasir Toko</p>
+          </div>
+          <div class="user-info">
+            <b id="topName"></b>
+            <span id="topRole"></span>
+          </div>
+        </header>
+
+        <section class="content">
+          <div id="pageContent"></div>
+        </section>
+      </main>
     </div>
 
-    <script src="dashboard.js"></script>
+    <div id="modalRoot"></div>
+    <div id="printArea"></div>
 
-</body>
+    <script src="app.js"></script>
+    <link rel="stylesheet" href="style.css" />
+  </body>
 </html>
